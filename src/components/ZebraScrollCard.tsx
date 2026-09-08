@@ -104,6 +104,8 @@ const ZebraScrollCard = ({ containerAnim }: ZebraScrollCardProps) => {
             src="/images/zebra-page.webp"
             alt="Zebra Defense Solutions Landing Page"
             className="zebra-card-img"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       </div>

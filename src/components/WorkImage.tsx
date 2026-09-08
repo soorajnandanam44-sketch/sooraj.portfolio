@@ -16,8 +16,33 @@ interface Props {
 const WorkImage = (props: Props) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isInView, setIsInView] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const modalVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Lazy-load video using IntersectionObserver so offscreen videos don't download on initial load
+  useEffect(() => {
+    if (!props.video || !containerRef.current) return;
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              setIsInView(true);
+              observer.disconnect();
+              break;
+            }
+          }
+        },
+        { rootMargin: "400px" }
+      );
+      observer.observe(containerRef.current);
+      return () => observer.disconnect();
+    } else {
+      setIsInView(true);
+    }
+  }, [props.video]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -55,7 +80,7 @@ const WorkImage = (props: Props) => {
 
   return (
     <>
-      <div className="work-image">
+      <div className="work-image" ref={containerRef}>
         <a
           className={`work-image-in ${props.video ? "has-video" : ""}`}
           href={props.link || "#"}
@@ -79,17 +104,23 @@ const WorkImage = (props: Props) => {
             </div>
           )}
 
-          <img src={props.image} alt={props.alt} />
+          <img
+            src={props.image}
+            alt={props.alt}
+            loading="lazy"
+            decoding="async"
+          />
 
           {props.video && (
             <>
               <video
                 ref={videoRef}
-                src={props.video}
+                src={isInView ? props.video : undefined}
+                poster={props.image}
                 muted
                 playsInline
                 loop
-                preload="metadata"
+                preload="none"
                 className={`work-card-video ${isHovered ? "is-active" : ""}`}
               />
               <div className={`work-play-overlay ${isHovered ? "is-hidden" : ""}`}>

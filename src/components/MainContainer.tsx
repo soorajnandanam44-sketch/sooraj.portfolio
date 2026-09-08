@@ -1,4 +1,4 @@
-import { PropsWithChildren, useEffect, useState } from "react";
+import { PropsWithChildren, useEffect, useState, lazy, Suspense } from "react";
 import About from "./About";
 import Career from "./Career";
 import Contact from "./Contact";
@@ -11,7 +11,7 @@ import Work from "./Work";
 import setSplitText from "./utils/splitText";
 
 import ErrorBoundary from "./ErrorBoundary";
-import TechStack from "./TechStack";
+const TechStack = lazy(() => import("./TechStack"));
 
 const MainContainer = ({ children }: PropsWithChildren) => {
   const [isDesktopView, setIsDesktopView] = useState<boolean>(
@@ -53,7 +53,16 @@ const MainContainer = ({ children }: PropsWithChildren) => {
                   ></div>
                 }
               >
-                <TechStack />
+                <Suspense
+                  fallback={
+                    <div
+                      className="techstack"
+                      style={{ minHeight: "85vh" }}
+                    ></div>
+                  }
+                >
+                  <TechStack />
+                </Suspense>
               </ErrorBoundary>
             )}
             <Contact />

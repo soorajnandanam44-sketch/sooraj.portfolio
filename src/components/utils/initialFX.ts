@@ -3,12 +3,15 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { smoother } from "../Navbar";
 
+import { setAllTimeline } from "./GsapScroll";
+
 export function initialFX() {
   document.body.style.overflowY = "auto";
   if (smoother) {
     smoother.paused(false);
     smoother.refresh();
   }
+  setAllTimeline();
   ScrollTrigger.refresh(true);
   document.getElementsByTagName("main")[0].classList.add("main-active");
   gsap.to("body", {
