@@ -1,0 +1,90 @@
+.zebra-card-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.zebra-card-mockup {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  background: #12141b;
+}
+
+.zebra-card-chrome {
+  height: 26px;
+  background: #12141b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.zebra-card-dots {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 32px;
+}
+
+.zebra-card-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #4a4d57;
+  display: inline-block;
+}
+
+.zebra-card-url-pill {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 2px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.zebra-card-url-text {
+  font-size: 0.6rem;
+  color: #7e8290;
+  letter-spacing: 0.3px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace, sans-serif;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.zebra-card-spacer {
+  width: 32px;
+}
+
+.zebra-card-viewport {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  position: relative;
+  background: #050a16;
+}
+
+.zebra-card-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: none !important;
+  display: block;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zebra-card-img {
+    transform: none !important;
+  }
+}
