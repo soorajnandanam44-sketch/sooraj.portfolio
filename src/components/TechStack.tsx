@@ -180,9 +180,8 @@ const TechStack = () => {
     // Refresh ScrollTrigger and ScrollSmoother when 3D component is mounted to prevent layout desync
     import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
       ScrollTrigger.refresh();
-      import("gsap-trial/ScrollSmoother").then(({ ScrollSmoother }) => {
-        ScrollSmoother.get()?.refresh();
-      });
+      const smoother = (window as any).smoother;
+      if (smoother?.refresh) smoother.refresh();
     });
 
     return () => {

@@ -97,9 +97,8 @@ const Work = () => {
 
     const handleImgLoad = () => {
       ScrollTrigger.refresh();
-      import("gsap-trial/ScrollSmoother").then(({ ScrollSmoother }) => {
-        ScrollSmoother.get()?.refresh();
-      });
+      const smoother = (window as any).smoother;
+      if (smoother?.refresh) smoother.refresh();
     };
 
     const imgs = workSection.querySelectorAll("img");
