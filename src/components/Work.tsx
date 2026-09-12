@@ -67,8 +67,6 @@ const Work = () => {
   >();
 
   useGSAP(() => {
-    if (window.innerWidth <= 1024) return;
-
     const workSection = document.querySelector(".work-section") as HTMLElement;
     const workFlex = document.querySelector(".work-flex") as HTMLElement;
     if (!workSection || !workFlex) return;
@@ -83,7 +81,8 @@ const Work = () => {
       const containerLeft =
         document.querySelector(".work-container")?.getBoundingClientRect().left ||
         0;
-      return Math.max(0, totalWidth - (window.innerWidth - containerLeft) + 160);
+      const extraPadding = window.innerWidth <= 768 ? 40 : 160;
+      return Math.max(0, totalWidth - (window.innerWidth - containerLeft) + extraPadding);
     }
 
     const timeline = gsap.timeline({
@@ -109,6 +108,39 @@ const Work = () => {
     const tween = timeline.getChildren()[0] || timeline;
     setContainerAnim(tween as gsap.core.Animation);
 
+    // Direct touch gesture support on mobile so horizontal swiping moves the cards seamlessly
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isHorizontalGesture = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isHorizontalGesture = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      const diffX = touchStartX - currentX;
+      const diffY = touchStartY - currentY;
+
+      if (!isHorizontalGesture) {
+        if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 8) {
+          isHorizontalGesture = true;
+        }
+      }
+
+      if (isHorizontalGesture) {
+        window.scrollBy({ top: diffX * 1.2, behavior: "instant" as ScrollBehavior });
+        touchStartX = currentX;
+        touchStartY = currentY;
+      }
+    };
+
+    workSection.addEventListener("touchstart", handleTouchStart, { passive: true });
+    workSection.addEventListener("touchmove", handleTouchMove, { passive: true });
+
     const handleImgLoad = () => {
       ScrollTrigger.refresh();
       const smoother = (window as any).smoother;
@@ -127,6 +159,8 @@ const Work = () => {
       timeline.kill();
       ScrollTrigger.getById("work")?.kill();
       imgs.forEach((img) => img.removeEventListener("load", handleImgLoad));
+      workSection.removeEventListener("touchstart", handleTouchStart);
+      workSection.removeEventListener("touchmove", handleTouchMove);
       setContainerAnim(undefined);
     };
   }, []);
