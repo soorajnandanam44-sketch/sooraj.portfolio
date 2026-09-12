@@ -11,6 +11,7 @@ interface Props {
   name?: string;
   category?: string;
   videoBadge?: string;
+  aspectRatio?: string;
 }
 
 const WorkImage = (props: Props) => {
@@ -160,7 +161,10 @@ const WorkImage = (props: Props) => {
                 </button>
               </div>
 
-              <div className="work-modal-video-wrapper">
+              <div
+                className="work-modal-video-wrapper"
+                style={props.aspectRatio ? { aspectRatio: props.aspectRatio } : undefined}
+              >
                 <video
                   ref={modalVideoRef}
                   src={props.fullVideo || props.video}

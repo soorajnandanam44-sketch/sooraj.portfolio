@@ -32,6 +32,7 @@ const projects = [
     video: "/epson-ai-video-web.mp4",
     fullVideo: "/epson-ai-video-web.mp4",
     videoBadge: "AI Film Preview",
+    aspectRatio: "2.33 / 1",
     link: "https://www.playbook.com/s/macstorage/657UoymoNFL7LEkmJpWojWC1?assetToken=RjVYxKqek9Anv3CW6pkyuT6G",
   },
   {
@@ -43,7 +44,20 @@ const projects = [
     video: "/c8000u-web.mp4",
     fullVideo: "/c8000u-web.mp4",
     videoBadge: "3D Blender Animation",
+    aspectRatio: "16 / 9",
     link: "https://www.playbook.com/s/macstorage/AAKgAAByJUrAN91dNWTw7aJH?assetToken=fEAqdcVwg8hMYYG3RWyR8bin",
+  },
+  {
+    name: "Bauer Vapor Skate",
+    category: "3D Modeling & Animation in Blender",
+    tools: "Blender 3D, Hard-Surface Modeling, Studio Lighting, Product Animation, Shading",
+    image: "/images/project-bauer-skate.png",
+    alt: "3D Modeling and Animation in Blender — Bauer Vapor Inline Skate by Sooraj Somarajan",
+    video: "/skate-3d-animation-web.mp4",
+    fullVideo: "/skate-3d-animation-web.mp4",
+    videoBadge: "3D Blender Animation",
+    aspectRatio: "16 / 9",
+    link: "https://www.playbook.com/s/macstorage/vZhygRYsf2ip8xfv5QnpKUKp?assetToken=PQL7EUXa3esyMCS7GdASv924",
   },
 ];
 
@@ -146,6 +160,7 @@ const Work = () => {
                   video={project.video}
                   fullVideo={project.fullVideo}
                   videoBadge={project.videoBadge}
+                  aspectRatio={project.aspectRatio}
                   link={project.link}
                   name={project.name}
                   category={project.category}

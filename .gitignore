@@ -30,3 +30,4 @@ backup/
 # Large raw video files (>100MB, exceeded GitHub limit; using web versions)
 public/c8000u_final.mp4
 public/epson-ai-video.mp4
+public/skate-3d-animation.mp4
