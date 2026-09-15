@@ -8,6 +8,7 @@ import Navbar from "./Navbar";
 import SocialIcons from "./SocialIcons";
 import WhatIDo from "./WhatIDo";
 import Work from "./Work";
+import HighlightedWorks from "./HighlightedWorks";
 import setSplitText from "./utils/splitText";
 
 import ErrorBoundary from "./ErrorBoundary";
@@ -44,6 +45,7 @@ const MainContainer = ({ children }: PropsWithChildren) => {
             <WhatIDo />
             <Career />
             <Work />
+            <HighlightedWorks />
             {isDesktopView && (
               <ErrorBoundary
                 fallback={
